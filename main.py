@@ -1,16 +1,20 @@
-import math
+from itertools import groupby
 
-n = 10 ** 7
-i = 2
+
+def eratosthenes(n):
+    sieve = list(range(n + 1))
+    sieve[1] = 0
+    for i in sieve:
+        if i > 1:
+            for j in range(i + i, len(sieve), i):
+                sieve[j] = 0
+    return sieve
+
+
 ofile = open('output.txt', 'w')
-while i < n:
-    k = 2
-    m = 0
-    while k <= int(math.sqrt(i)):
-        if i % k == 0:
-            m = m + 1
-        k = k + 1
-    if m == 0:
-        ofile.write('{}\n'.format(i))
-    i = i + 1
+x = 10**7
+listt = eratosthenes(x)
+listt = list(set(listt))
+listt.sort()
+ofile.write('{}\n'.format(listt))
 ofile.close()
